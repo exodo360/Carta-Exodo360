@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Éxodo 360 — Carta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a14;
+    --surface:#15111f;
+    --surface-2:#1c1730;
+    --line: rgba(255,255,255,.09);
+    --text:#f4f2fb;
+    --text-dim:#a79fc0;
+    --pink:#ff2e9a;
+    --cyan:#2fe4ff;
+    --purple:#a35bff;
+    --yellow:#ffd23f;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(255,46,154,.18), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 90% 10%, rgba(47,228,255,.14), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Poppins', sans-serif;
+    min-height:100vh;
+    padding-bottom:3rem;
+  }
+
+  a{color:inherit;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    text-align:center;
+    padding:2.6rem 1.2rem 1.6rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+    pointer-events:none;
+  }
+  .hero-glass{
+    font-size:1.8rem;
+    display:block;
+    margin-bottom:.3rem;
+    filter: drop-shadow(0 0 10px rgba(255,46,154,.6));
+  }
+  .logo{
+    font-family:'Righteous', cursive;
+    font-size:clamp(2.1rem, 9vw, 3.4rem);
+    letter-spacing:.03em;
+    line-height:1;
+    background:linear-gradient(90deg, var(--pink), var(--purple) 45%, var(--cyan) 80%, var(--yellow));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 34px rgba(163,91,255,.35);
+    animation: flicker 4.5s ease-in-out 1;
+  }
+  @keyframes flicker{
+    0%{opacity:0; filter:blur(6px);}
+    8%{opacity:1; filter:blur(0);}
+    10%{opacity:.4;}
+    12%{opacity:1;}
+    100%{opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .logo{animation:none;}
+  }
+  .subtitle{
+    font-family:'Righteous', cursive;
+    font-size:.85rem;
+    letter-spacing:.55em;
+    color:var(--cyan);
+    margin-top:.5rem;
+    text-shadow:0 0 12px rgba(47,228,255,.6);
+  }
+  .insta-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    margin-top:1.1rem;
+    padding:.45rem .9rem;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    font-size:.8rem;
+    color:var(--text-dim);
+    text-decoration:none;
+  }
+  .insta-chip b{color:var(--text); font-weight:600;}
+
+  /* ---------- STICKY CONTROL BAR ---------- */
+  .controlbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,10,20,.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:.8rem 1rem .7rem;
+  }
+  .search-wrap{
+    position:relative;
+    max-width:640px;
+    margin:0 auto .7rem;
+  }
+  .search-wrap svg{
+    position:absolute; left:.8rem; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; opacity:.5;
+  }
+  #search{
+    width:100%;
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:.65rem .9rem .65rem 2.3rem;
+    border-radius:999px;
+    font-family:'Poppins', sans-serif;
+    font-size:.9rem;
+    outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  #search:focus{
+    border-color:var(--purple);
+    box-shadow:0 0 0 3px rgba(163,91,255,.2);
+  }
+  #search::placeholder{color:var(--text-dim);}
+
+  .pillrow{
+    display:flex;
+    gap:.5rem;
+    overflow-x:auto;
+    max-width:640px;
+    margin:0 auto;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
+  .pillrow::-webkit-scrollbar{display:none;}
+  .pill{
+    flex:0 0 auto;
+    padding:.42rem .85rem;
+    border-radius:999px;
+    font-size:.78rem;
+    font-weight:600;
+    white-space:nowrap;
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .pill.active{
+    color:var(--bg);
+    border-color:transparent;
+  }
+  .pill.active[data-accent="pink"]{background:var(--pink); box-shadow:0 0 16px rgba(255,46,154,.55);}
+  .pill.active[data-accent="cyan"]{background:var(--cyan); box-shadow:0 0 16px rgba(47,228,255,.55);}
+  .pill.active[data-accent="purple"]{background:var(--purple); box-shadow:0 0 16px rgba(163,91,255,.55);}
+  .pill.active[data-accent="yellow"]{background:var(--yellow); box-shadow:0 0 16px rgba(255,210,63,.55);}
+
+  /* ---------- MAIN ---------- */
+  main{max-width:640px; margin:0 auto; padding:1.6rem 1rem 0;}
+
+  section.category{
+    margin-bottom:2.2rem;
+    scroll-margin-top:6.6rem;
+  }
+  .cat-head{
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+    margin-bottom:.7rem;
+  }
+  .cat-icon{font-size:1.3rem;}
+  .cat-title{
+    font-family:'Righteous', cursive;
+    font-size:1.15rem;
+    letter-spacing:.02em;
+  }
+  .cat-title[data-accent="pink"]{color:var(--pink); text-shadow:0 0 14px rgba(255,46,154,.45);}
+  .cat-title[data-accent="cyan"]{color:var(--cyan); text-shadow:0 0 14px rgba(47,228,255,.45);}
+  .cat-title[data-accent="purple"]{color:var(--purple); text-shadow:0 0 14px rgba(163,91,255,.45);}
+  .cat-title[data-accent="yellow"]{color:var(--yellow); text-shadow:0 0 14px rgba(255,210,63,.45);}
+
+  .cat-line{
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .subgroup-title{
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin:.9rem 0 .4rem;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:.15rem .95rem;
+  }
+  .item{
+    display:flex;
+    align-items:baseline;
+    gap:.5rem;
+    padding:.65rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:last-child{border-bottom:none;}
+  .item-name{
+    font-size:.92rem;
+    font-weight:500;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .item-note{
+    display:block;
+    font-size:.72rem;
+    font-weight:400;
+    color:var(--text-dim);
+    margin-top:.1rem;
+    white-space:normal;
+  }
+  .item-dots{
+    flex:1;
+    border-bottom:2px dotted rgba(255,255,255,.16);
+    transform:translateY(-5px);
+    min-width:12px;
+  }
+  .item-price{
+    font-family:'Space Mono', monospace;
+    font-size:.9rem;
+    font-weight:700;
+    color:var(--text);
+    white-space:nowrap;
+  }
+
+  .empty-state{
+    text-align:center;
+    color:var(--text-dim);
+    padding:3rem 1rem;
+    font-size:.9rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:2.4rem 1.2rem 0;
+    color:var(--text-dim);
+    font-size:.82rem;
+  }
+  footer .heart{color:var(--pink);}
+  footer .handle{
+    display:inline-block;
+    margin-top:.4rem;
+    color:var(--cyan);
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-glass">🍸</span>
+  <div class="logo">ÉXODO 360</div>
+  <div class="subtitle">RESTOBAR</div>
+  <a class="insta-chip" href="https://instagram.com/Exodo_360" target="_blank" rel="noopener">
+    📷 <b>@Exodo_360</b>
+  </a>
+</div>
+
+<div class="controlbar">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search" type="text" placeholder="Busca tu trago favorito...">
+  </div>
+  <div class="pillrow" id="pillrow"></div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  Gracias por ser parte de esta experiencia <span class="heart">💙</span>
+  <br>
+  <span class="handle">📷 Exodo_360</span>
+</footer>
+
+<script>
+const ACCENTS = ["pink","cyan","purple","yellow"];
+
+const DATA = [
+  { id:"margaritas", icon:"🍹", title:"Margaritas", items:[
+    { name:"Tradicional y Blue", price:7500 },
+    { name:"Sabores", price:7500 },
+    { name:"Variedades", price:8000 },
+  ]},
+  { id:"pisco-sour", icon:"🍋", title:"Pisco Sour", items:[
+    { name:"Tradicional", price:4500 },
+    { name:"Catedral", price:6000 },
+    { name:"Sabores", price:5000 },
+    { name:"Variedades", price:4500 },
+  ]},
+  { id:"mojitos", icon:"🌿", title:"Mojitos", items:[
+    { name:"Tradicionales", price:7000 },
+    { name:"Sabores", price:8000 },
+  ]},
+  { id:"spritz", icon:"🥂", title:"Spritz", items:[
+    { name:"Ramazzotti", price:7500 },
+    { name:"Aperol", price:7500 },
+    { name:"St. Germain", price:8500 },
+    { name:"Campari", price:7500 },
+  ]},
+  { id:"caipirinhas", icon:"🇧🇷", title:"Caipirinhas", items:[
+    { name:"Caipiriña", price:7000 },
+    { name:"Caipiroska", price:7000, note:"con vodka" },
+    { name:"Caipirissima", price:7000, note:"con ron" },
+    { name:"Sabores", price:8000 },
+  ]},
+  { id:"coladas", icon:"🍍", title:"Coladas", items:[
+    { name:"Piña", price:7500 },
+    { name:"Frutilla", price:7500 },
+    { name:"Mango", price:7500 },
+    { name:"Berries", price:7500 },
+  ]},
+  { id:"sangria", icon:"🍷", title:"Sangría", items:[
+    { name:"Berries", price:8000 },
+    { name:"Citron", price:8000 },
+  ]},
+  { id:"collins", icon:"🥃", title:"Collins", items:[
+    { name:"Tom Collins", price:8000 },
+    { name:"John Collins", price:8000 },
+  ]},
+  { id:"clasicos", icon:"🍸", title:"Cócteles Clásicos", items:[
+    { name:"Kir", price:6000 },
+    { name:"Kir Royal", price:6000 },
+    { name:"Blue Lagoon", price:7000 },
+    { name:"Negroni", price:9000 },
+    { name:"Clavo Oxidado", price:9000 },
+    { name:"Tropical Gin", price:7500 },
+    { name:"Cosmopolitan", price:7500 },
+    { name:"Orgasmo", price:7000 },
+    { name:"Tequila Sunrise", price:7000 },
+    { name:"Sex on the Beach", price:7000 },
+    { name:"Gin Lemon Blue", price:8000 },
+    { name:"Gin Pink", price:8000 },
+    { name:"Daiquiri", price:7000 },
+  ]},
+  { id:"destilados", icon:"🍾", title:"Destilados", groups:[
+    { sub:"Gin", items:[
+      { name:"Beefeater Dry", price:8000 },
+      { name:"Tanqueray Dry", price:8000 },
+      { name:"Beefeater Pink", price:3500, note:"strawberry" },
+      { name:"Tanqueray Sevilla", price:8500 },
+    ]},
+    { sub:"Pisco", items:[
+      { name:"35°", price:5000 },
+      { name:"40°", price:6000 },
+    ]},
+    { sub:"Piscola", items:[
+      { name:"35°", price:7000 },
+      { name:"40°", price:8000 },
+    ]},
+    { sub:"Ron", items:[
+      { name:"Barceló", price:6500 },
+      { name:"Havana Reserva", price:7000 },
+      { name:"Bacardí", price:6500 },
+    ]},
+    { sub:"Vodka", items:[
+      { name:"Stolichnaya", price:6500 },
+      { name:"Absolut", price:7000 },
+      { name:"Absolut Saborizado", price:7500 },
+    ]},
+    { sub:"Whisky", items:[
+      { name:"Johnnie Walker Red Label", price:7000 },
+      { name:"Jack Daniel's", price:7500 },
+      { name:"Ballantine's", price:7000 },
+    ]},
+  ]},
+  { id:"cervezas", icon:"🍺", title:"Cervezas", items:[
+    { name:"Cerveza Austral", price:5000 },
+    { name:"Cerveza 650cc", price:5000 },
+    { name:"Michelada", price:6000 },
+  ]},
+  { id:"bebidas", icon:"🥤", title:"Bebidas sin Alcohol", items:[
+    { name:"Bebidas", price:3000 },
+    { name:"Red Bull", price:4000 },
+    { name:"Jugos Naturales", price:4000 },
+    { name:"Agua Mineral", price:2500 },
+  ]},
+  { id:"shots", icon:"🥃", title:"Shot de Tequila", items:[
+    { name:"Shot de Tequila", price:2000 },
+  ]},
+  { id:"compartir", icon:"🍢", title:"Para Compartir", items:[
+    { name:"Tabla de Carnes", price:15900, note:"Lomo, pollo, chorizos, aceitunas y baguette" },
+    { name:"Tabla de Quesos", price:6000 },
+    { name:"Pollo al Pilpil", price:8000 },
+    { name:"Camarón al Pilpil", price:9000 },
+  ]},
+];
+
+function fmt(n){ return "$" + n.toLocaleString("es-CL"); }
+
+function itemRow(it){
+  return `
+  <div class="item" data-name="${it.name.toLowerCase()}">
+    <span class="item-name">${it.name}${it.note ? `<span class="item-note">${it.note}</span>` : ""}</span>
+    <span class="item-dots"></span>
+    <span class="item-price">${fmt(it.price)}</span>
+  </div>`;
+}
+
+const pillrow = document.getElementById("pillrow");
+const main = document.getElementById("main");
+
+DATA.forEach((cat, i) => {
+  const accent = ACCENTS[i % ACCENTS.length];
+
+  // pill
+  const pill = document.createElement("button");
+  pill.className = "pill";
+  pill.dataset.accent = accent;
+  pill.textContent = cat.icon + " " + cat.title;
+  pill.addEventListener("click", () => {
+    document.getElementById(cat.id).scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  pillrow.appendChild(pill);
+
+  // section
+  const section = document.createElement("section");
+  section.className = "category";
+  section.id = cat.id;
+
+  let body = "";
+  if (cat.items){
+    body = `<div class="card">${cat.items.map(itemRow).join("")}</div>`;
+  } else if (cat.groups){
+    body = cat.groups.map(g => `
+      <div class="subgroup-title">${g.sub}</div>
+      <div class="card">${g.items.map(itemRow).join("")}</div>
+    `).join("");
+  }
+
+  section.innerHTML = `
+    <div class="cat-head">
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-title" data-accent="${accent}">${cat.title}</span>
+      <span class="cat-line"></span>
+    </div>
+    ${body}
+  `;
+  main.appendChild(section);
+});
+
+const emptyState = document.createElement("div");
+emptyState.className = "empty-state";
+emptyState.style.display = "none";
+emptyState.textContent = "No encontramos ese trago. Prueba con otro nombre.";
+main.appendChild(emptyState);
+
+/* ---- search ---- */
+document.getElementById("search").addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll("section.category").forEach(section => {
+    let sectionHasMatch = false;
+    section.querySelectorAll(".item").forEach(item => {
+      const match = item.dataset.name.includes(q);
+      item.style.display = match ? "" : "none";
+      if (match) sectionHasMatch = true;
+    });
+    section.style.display = (q === "" || sectionHasMatch) ? "" : "none";
+    if (q === "" || sectionHasMatch) anyVisible = true;
+  });
+
+  emptyState.style.display = anyVisible ? "none" : "block";
+});
+
+/* ---- scrollspy ---- */
+const pills = Array.from(pillrow.children);
+const sections = DATA.map(c => document.getElementById(c.id));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const idx = sections.indexOf(entry.target);
+    if (idx === -1) return;
+    if (entry.isIntersecting){
+      pills.forEach(p => p.classList.remove("active"));
+      pills[idx].classList.add("active");
+      pills[idx].scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
+    }
+  });
+}, { rootMargin: "-40% 0px -50% 0px", threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
