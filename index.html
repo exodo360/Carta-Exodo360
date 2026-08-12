@@ -304,18 +304,18 @@ const ACCENTS = ["pink","cyan","purple","yellow"];
 
 const DATA = [
   { id:"margaritas", icon:"🍹", title:"Margaritas", items:[
-    { name:"Tradicional y Blue", price:7500 },
+    { name:"Margarita tradicional y Blue", price:7500 },
     { name:"Sabores", price:7500 },
     { name:"Variedades", price:8000 },
   ]},
   { id:"pisco-sour", icon:"🍋", title:"Pisco Sour", items:[
-    { name:"Tradicional", price:4500 },
+    { name:"Pisco-Sour tradicional", price:4500 },
     { name:"Catedral", price:6000 },
     { name:"Sabores", price:5000 },
     { name:"Variedades", price:4500 },
   ]},
   { id:"mojitos", icon:"🌿", title:"Mojitos", items:[
-    { name:"Tradicionales", price:7000 },
+    { name:"Mojito tradicional", price:7000 },
     { name:"Sabores", price:8000 },
   ]},
   { id:"spritz", icon:"🥂", title:"Spritz", items:[
@@ -357,20 +357,20 @@ const DATA = [
     { name:"Sex on the Beach", price:7000 },
     { name:"Gin Lemon Blue", price:8000 },
     { name:"Gin Pink", price:8000 },
-    { name:"Daiquiri", price:7000 },
+    { name:"Daiquiri", price:7000, note:"Ron blanco, jugo de limón y azúcar." },
   ]},
   { id:"destilados", icon:"🍾", title:"Destilados", groups:[
     { sub:"Gin", items:[
       { name:"Beefeater Dry", price:8000 },
       { name:"Tanqueray Dry", price:8000 },
-      { name:"Beefeater Pink", price:3500, note:"strawberry" },
+      { name:"Beefeater Pink", price:8500, note:"strawberry" },
       { name:"Tanqueray Sevilla", price:8500 },
     ]},
     { sub:"Pisco", items:[
       { name:"35°", price:5000 },
       { name:"40°", price:6000 },
     ]},
-    { sub:"Piscola", items:[
+    { sub:"Piscolón", items:[
       { name:"35°", price:7000 },
       { name:"40°", price:8000 },
     ]},
@@ -391,9 +391,9 @@ const DATA = [
     ]},
   ]},
   { id:"cervezas", icon:"🍺", title:"Cervezas", items:[
-    { name:"Cerveza Austral", price:5000 },
+    { name:"Cerveza Austral-Torobayo", price:5000 },
     { name:"Cerveza 650cc", price:5000 },
-    { name:"Michelada", price:6000 },
+    { name:"Michelada", price:+1000 },
   ]},
   { id:"bebidas", icon:"🥤", title:"Bebidas sin Alcohol", items:[
     { name:"Bebidas", price:3000 },
@@ -406,7 +406,7 @@ const DATA = [
   ]},
   { id:"compartir", icon:"🍢", title:"Para Compartir", items:[
     { name:"Tabla de Carnes", price:15900, note:"Lomo, pollo, chorizos, aceitunas y baguette" },
-    { name:"Tabla de Quesos", price:6000 },
+    { name:"Tabla Antipasto", price:6000 },
     { name:"Pollo al Pilpil", price:8000 },
     { name:"Camarón al Pilpil", price:9000 },
   ]},
