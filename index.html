@@ -214,13 +214,15 @@
     padding:.15rem .95rem;
   }
   .item{
-    display:flex;
-    align-items:baseline;
-    gap:.5rem;
     padding:.65rem 0;
     border-bottom:1px solid var(--line);
   }
   .item:last-child{border-bottom:none;}
+  .item-row{
+    display:flex;
+    align-items:baseline;
+    gap:.5rem;
+  }
   .item-name{
     font-size:.92rem;
     font-weight:500;
@@ -233,7 +235,8 @@
     font-size:.72rem;
     font-weight:400;
     color:var(--text-dim);
-    margin-top:.1rem;
+    margin-top:.3rem;
+    line-height:1.4;
     white-space:normal;
   }
   .item-dots{
@@ -398,7 +401,7 @@ const DATA = [
   { id:"cervezas", icon:"🍺", title:"Cervezas", items:[
     { name:"Cerveza Austral-Torobayo", price:5000 },
     { name:"Cerveza 650cc", price:5000 },
-    { name:"Michelada", + price:1000 },
+    { name:"Michelada", price:1000, addon:true, note:"agrégalo a cualquier cerveza" },
   ]},
   { id:"bebidas", icon:"🥤", title:"Bebidas sin Alcohol", items:[
     { name:"Bebidas", price:3000 },
@@ -420,11 +423,15 @@ const DATA = [
 function fmt(n){ return "$" + n.toLocaleString("es-CL"); }
 
 function itemRow(it){
+  const priceLabel = it.addon ? ("+" + fmt(it.price)) : fmt(it.price);
   return `
   <div class="item" data-name="${it.name.toLowerCase()}">
-    <span class="item-name">${it.name}${it.note ? `<span class="item-note">${it.note}</span>` : ""}</span>
-    <span class="item-dots"></span>
-    <span class="item-price">${fmt(it.price)}</span>
+    <div class="item-row">
+      <span class="item-name">${it.name}</span>
+      <span class="item-dots"></span>
+      <span class="item-price">${priceLabel}</span>
+    </div>
+    ${it.note ? `<div class="item-note">${it.note}</div>` : ""}
   </div>`;
 }
 
