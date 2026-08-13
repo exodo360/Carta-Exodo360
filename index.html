@@ -2,507 +2,523 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta · Estación Espresso</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Éxodo 360 — Carta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#EAE4D9;
-    --paper:#F4EFE5;
-    --brown-900:#472A1B;
-    --brown-700:#5C3824;
-    --brown-500:#7A543A;
-    --rust:#BD5A22;
-    --rust-dark:#9C4718;
-    --tan:#C9A480;
-    --tan-light:#DCC5A6;
-    --dot:rgba(71,42,27,.32);
-    --green:#5E7D4F;
-    --shadow: 0 10px 30px rgba(71,42,27,.08);
-    --radius: 18px;
+    --bg:#0a0a14;
+    --surface:#15111f;
+    --surface-2:#1c1730;
+    --line: rgba(255,255,255,.09);
+    --text:#f4f2fb;
+    --text-dim:#a79fc0;
+    --pink:#ff2e9a;
+    --cyan:#2fe4ff;
+    --purple:#a35bff;
+    --yellow:#ffd23f;
   }
 
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-
   body{
-    margin:0;
-    background:var(--cream);
-    color:var(--brown-900);
-    font-family:'Fredoka', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(255,46,154,.18), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 90% 10%, rgba(47,228,255,.14), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Poppins', sans-serif;
+    min-height:100vh;
+    padding-bottom:3rem;
   }
 
   a{color:inherit;}
-  a:focus-visible, button:focus-visible{
-    outline:3px solid var(--rust);
-    outline-offset:3px;
-    border-radius:6px;
-  }
 
-  /* ---------- background watermark ---------- */
-  .watermark{
-    position:absolute;
-    top:-60px; right:-140px;
-    width:520px; height:520px;
-    opacity:.28;
-    pointer-events:none;
-    z-index:0;
-  }
-  .watermark text{
-    fill:var(--tan);
-    font-family:'Fredoka', sans-serif;
-    font-weight:600;
-    font-size:20.5px;
-    letter-spacing:5px;
-  }
-  .watermark-spin{
-    animation:spin 90s linear infinite;
-    transform-origin:260px 260px;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-
-  /* ---------- layout shell ---------- */
-  .wrap{
-    max-width:1080px;
-    margin:0 auto;
-    padding:0 24px 60px;
-    position:relative;
-  }
-
-  header.hero{
-    position:relative;
-    padding:44px 0 20px;
+  /* ---------- HERO ---------- */
+  .hero{
     text-align:center;
+    padding:2.6rem 1.2rem 1.6rem;
+    position:relative;
     overflow:hidden;
   }
-
-  .badge{
-    display:inline-flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    border:3px solid var(--rust);
-    border-radius:50%;
-    width:168px; height:112px;
-    margin:0 auto 18px;
-    background:var(--paper);
-    box-shadow:var(--shadow);
-    position:relative;
-    z-index:1;
-  }
-  .badge span{
-    font-weight:700;
-    font-size:15px;
-    line-height:1.25;
-    color:var(--brown-900);
-    text-transform:uppercase;
-    letter-spacing:.5px;
-  }
-
-  h1.title{
-    font-size:clamp(3.4rem, 13vw, 7.2rem);
-    line-height:.9;
-    font-weight:700;
-    letter-spacing:1px;
-    margin:0 0 22px;
-    color:var(--brown-900);
-    position:relative;
-    z-index:1;
-  }
-
-  .meta-row{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:center;
-    gap:14px 28px;
-    font-weight:500;
-    color:var(--brown-700);
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-    font-size:.92rem;
-    position:relative;
-    z-index:1;
-  }
-
-  .status-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 16px;
-    border-radius:999px;
-    background:var(--paper);
-    border:2px solid var(--tan-light);
-    font-weight:600;
-    letter-spacing:.5px;
-    text-transform:none;
-  }
-  .status-dot{
-    width:9px; height:9px;
-    border-radius:50%;
-    background:var(--green);
-    box-shadow:0 0 0 0 rgba(94,125,79,.5);
-    animation:pulse 2s ease-in-out infinite;
-  }
-  .status-pill.closed .status-dot{
-    background:#B24A3B;
-    animation:none;
-  }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(94,125,79,.45); }
-    70%{ box-shadow:0 0 0 8px rgba(94,125,79,0); }
-    100%{ box-shadow:0 0 0 0 rgba(94,125,79,0); }
-  }
-  .status-pill.closed{ border-color:#DCB6AC; }
-
-  .cup-wrap{
-    width:56px; margin:26px auto 0;
-    position:relative;
-    z-index:1;
-  }
-  .steam path{
-    stroke:var(--tan);
-    stroke-width:3;
-    fill:none;
-    stroke-linecap:round;
-    opacity:.85;
-    animation:rise 3.2s ease-in-out infinite;
-  }
-  .steam path:nth-child(2){ animation-delay:.5s; }
-  .steam path:nth-child(3){ animation-delay:1s; }
-  @keyframes rise{
-    0%{ transform:translateY(4px); opacity:0; }
-    30%{ opacity:.85; }
-    100%{ transform:translateY(-10px); opacity:0; }
-  }
-
-  /* ---------- sticky nav ---------- */
-  nav.jumpnav{
-    position:sticky;
-    top:0;
-    z-index:20;
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    padding:14px 10px;
-    margin:32px -24px 8px;
-    background:linear-gradient(var(--cream) 78%, transparent);
-    flex-wrap:wrap;
-  }
-  nav.jumpnav button{
-    font-family:inherit;
-    font-weight:600;
-    font-size:.88rem;
-    letter-spacing:.4px;
-    color:var(--brown-700);
-    background:var(--paper);
-    border:2px solid transparent;
-    border-radius:999px;
-    padding:9px 18px;
-    cursor:pointer;
-    transition:background .2s, color .2s, border-color .2s, transform .15s;
-    box-shadow:var(--shadow);
-  }
-  nav.jumpnav button:hover{ transform:translateY(-1px); }
-  nav.jumpnav button.active{
-    background:var(--brown-900);
-    color:var(--paper);
-    border-color:var(--brown-900);
-  }
-
-  /* ---------- sections ---------- */
-  section.menu-section{
-    padding:38px 0 6px;
-    opacity:0;
-    transform:translateY(14px);
-    transition:opacity .6s ease, transform .6s ease;
-  }
-  section.menu-section.in-view{
-    opacity:1;
-    transform:none;
-  }
-
-  .cols{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-  }
-  @media (max-width:720px){
-    .cols{ grid-template-columns:1fr; gap:8px; }
-  }
-
-  h2.cat{
-    font-size:1.7rem;
-    font-weight:700;
-    color:var(--brown-900);
-    margin:0 0 18px;
-    padding-bottom:8px;
-    border-bottom:3px solid var(--rust);
-    display:inline-block;
-  }
-
-  .menu-item{
-    display:flex;
-    align-items:baseline;
-    gap:.5em;
-    padding:9px 8px;
-    margin:0 -8px;
-    border-radius:10px;
-    transition:background .2s;
-  }
-  .menu-item:hover{
-    background:rgba(189,90,34,.08);
-  }
-  .menu-item .name{
-    white-space:nowrap;
-    font-size:1.25rem;
-    font-weight:400;
-    color:var(--brown-900);
-  }
-  .menu-item .dots{
-    flex:1;
-    border-bottom:2.5px dotted var(--dot);
-    margin-bottom:6px;
-    min-width:16px;
-  }
-  .menu-item .price{
-    white-space:nowrap;
-    font-size:1.25rem;
-    font-weight:600;
-    color:var(--rust-dark);
-  }
-
-  .footnote{
-    font-size:.85rem;
-    color:var(--brown-500);
-    font-weight:500;
-    margin:4px 8px 0;
-    font-style:italic;
-  }
-
-  .pastry-wrap{
-    position:relative;
-  }
-  .pastry-doodles{
-    position:absolute;
-    right:-10px; top:10px;
-    width:230px;
-    opacity:.55;
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, transparent 60%, var(--bg) 100%);
     pointer-events:none;
   }
-  @media (max-width:900px){
-    .pastry-doodles{ display:none; }
+  .hero-glass{
+    font-size:1.8rem;
+    display:block;
+    margin-bottom:.3rem;
+    filter: drop-shadow(0 0 10px rgba(255,46,154,.6));
   }
-  .pastry-doodles svg{
-    width:100%; height:auto;
+  .logo{
+    font-family:'Righteous', cursive;
+    font-size:clamp(2.1rem, 9vw, 3.4rem);
+    letter-spacing:.03em;
+    line-height:1;
+    background:linear-gradient(90deg, var(--pink), var(--purple) 45%, var(--cyan) 80%, var(--yellow));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 34px rgba(163,91,255,.35);
+    animation: flicker 4.5s ease-in-out 1;
   }
-  .pastry-doodles path, .pastry-doodles circle{
-    stroke:var(--brown-500);
-    stroke-width:2.2;
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
+  @keyframes flicker{
+    0%{opacity:0; filter:blur(6px);}
+    8%{opacity:1; filter:blur(0);}
+    10%{opacity:.4;}
+    12%{opacity:1;}
+    100%{opacity:1;}
   }
-
-  .pastry-items{
-    max-width:640px;
+  @media (prefers-reduced-motion: reduce){
+    .logo{animation:none;}
   }
-
-  hr.divider{
-    border:none;
-    border-top:2px dashed var(--tan-light);
-    margin:44px 0 6px;
+  .subtitle{
+    font-family:'Righteous', cursive;
+    font-size:.85rem;
+    letter-spacing:.55em;
+    color:var(--cyan);
+    margin-top:.5rem;
+    text-shadow:0 0 12px rgba(47,228,255,.6);
   }
-
-  /* ---------- footer ---------- */
-  footer{
-    margin-top:56px;
-    padding:26px 8px 4px;
-    border-top:3px solid var(--brown-900);
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:space-between;
+  .insta-chip{
+    display:inline-flex;
     align-items:center;
-    gap:12px;
-  }
-  footer .foot-line{
-    font-weight:600;
-    font-size:1rem;
-    letter-spacing:.4px;
-    text-transform:uppercase;
-    color:var(--brown-900);
-  }
-  footer a.foot-link{
+    gap:.4rem;
+    margin-top:1.1rem;
+    padding:.45rem .9rem;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    font-size:.8rem;
+    color:var(--text-dim);
     text-decoration:none;
-    border-bottom:2px solid var(--rust);
-    padding-bottom:1px;
-    transition:color .2s;
   }
-  footer a.foot-link:hover{ color:var(--rust-dark); }
-  footer .addr{
+  .insta-chip b{color:var(--text); font-weight:600;}
+
+  /* ---------- STICKY CONTROL BAR ---------- */
+  .controlbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,10,20,.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:.8rem 1rem .7rem;
+  }
+  .search-wrap{
+    position:relative;
+    max-width:640px;
+    margin:0 auto .7rem;
+  }
+  .search-wrap svg{
+    position:absolute; left:.8rem; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; opacity:.5;
+  }
+  #search{
+    width:100%;
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:.65rem .9rem .65rem 2.3rem;
+    border-radius:999px;
+    font-family:'Poppins', sans-serif;
+    font-size:.9rem;
+    outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  #search:focus{
+    border-color:var(--purple);
+    box-shadow:0 0 0 3px rgba(163,91,255,.2);
+  }
+  #search::placeholder{color:var(--text-dim);}
+
+  .pillrow{
+    display:flex;
+    gap:.5rem;
+    overflow-x:auto;
+    max-width:640px;
+    margin:0 auto;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
+  .pillrow::-webkit-scrollbar{display:none;}
+  .pill{
+    flex:0 0 auto;
+    padding:.42rem .85rem;
+    border-radius:999px;
+    font-size:.78rem;
+    font-weight:600;
+    white-space:nowrap;
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .pill.active{
+    color:var(--bg);
+    border-color:transparent;
+  }
+  .pill.active[data-accent="pink"]{background:var(--pink); box-shadow:0 0 16px rgba(255,46,154,.55);}
+  .pill.active[data-accent="cyan"]{background:var(--cyan); box-shadow:0 0 16px rgba(47,228,255,.55);}
+  .pill.active[data-accent="purple"]{background:var(--purple); box-shadow:0 0 16px rgba(163,91,255,.55);}
+  .pill.active[data-accent="yellow"]{background:var(--yellow); box-shadow:0 0 16px rgba(255,210,63,.55);}
+
+  /* ---------- MAIN ---------- */
+  main{max-width:640px; margin:0 auto; padding:1.6rem 1rem 0;}
+
+  section.category{
+    margin-bottom:2.2rem;
+    scroll-margin-top:6.6rem;
+  }
+  .cat-head{
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+    margin-bottom:.7rem;
+  }
+  .cat-icon{font-size:1.3rem;}
+  .cat-title{
+    font-family:'Righteous', cursive;
+    font-size:1.15rem;
+    letter-spacing:.02em;
+  }
+  .cat-title[data-accent="pink"]{color:var(--pink); text-shadow:0 0 14px rgba(255,46,154,.45);}
+  .cat-title[data-accent="cyan"]{color:var(--cyan); text-shadow:0 0 14px rgba(47,228,255,.45);}
+  .cat-title[data-accent="purple"]{color:var(--purple); text-shadow:0 0 14px rgba(163,91,255,.45);}
+  .cat-title[data-accent="yellow"]{color:var(--yellow); text-shadow:0 0 14px rgba(255,210,63,.45);}
+
+  .cat-line{
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .subgroup-title{
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin:.9rem 0 .4rem;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:.15rem .95rem;
+  }
+  .item{
+    padding:.65rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:last-child{border-bottom:none;}
+  .item-row{
+    display:flex;
+    align-items:baseline;
+    gap:.5rem;
+  }
+  .item-name{
+    font-size:.92rem;
+    font-weight:500;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .item-note{
+    display:block;
+    font-size:.72rem;
     font-weight:400;
-    color:var(--brown-700);
+    color:var(--text-dim);
+    margin-top:.3rem;
+    line-height:1.4;
+    white-space:normal;
+  }
+  .item-dots{
+    flex:1;
+    border-bottom:2px dotted rgba(255,255,255,.16);
+    transform:translateY(-5px);
+    min-width:12px;
+  }
+  .item-price{
+    font-family:'Space Mono', monospace;
+    font-size:.9rem;
+    font-weight:700;
+    color:var(--text);
+    white-space:nowrap;
+  }
+
+  .empty-state{
+    text-align:center;
+    color:var(--text-dim);
+    padding:3rem 1rem;
+    font-size:.9rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:2.4rem 1.2rem 0;
+    color:var(--text-dim);
+    font-size:.82rem;
+  }
+  footer .heart{color:var(--pink);}
+  footer .handle{
+    display:inline-block;
+    margin-top:.4rem;
+    color:var(--cyan);
+    font-weight:600;
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-
-  <header class="hero">
-    <svg class="watermark" viewBox="0 0 520 520" aria-hidden="true">
-      <g class="watermark-spin">
-        <circle cx="260" cy="260" r="230" fill="none" stroke="var(--tan)" stroke-width="1"/>
-        <path id="wmCircle" fill="none" d="M 260,60 A 200,200 0 1 1 259,60"></path>
-        <text><textPath href="#wmCircle" startOffset="0%">ESTACIÓN ESPRESSO • CAFÉ DE ESPECIALIDAD • VALPARAÍSO •</textPath></text>
-      </g>
-    </svg>
-
-    <div class="badge">
-      <span>Estación<br>Espresso</span>
-    </div>
-
-    <h1 class="title">CARTA</h1>
-
-    <div class="meta-row">
-      <span>Lunes – Viernes</span>
-      <span class="status-pill" id="statusPill">
-        <span class="status-dot"></span>
-        <span id="statusText">Comprobando horario…</span>
-      </span>
-      <span>09.00 AM – 17.00 PM</span>
-    </div>
-
-    <div class="cup-wrap" aria-hidden="true">
-      <svg viewBox="0 0 60 46" class="steam">
-        <path d="M18 20 C14 15, 22 12, 18 6"/>
-        <path d="M30 20 C26 15, 34 12, 30 6"/>
-        <path d="M42 20 C38 15, 46 12, 42 6"/>
-      </svg>
-      <svg viewBox="0 0 60 40" width="56">
-        <path d="M8 16 h30 v10 a15 15 0 0 1 -15 15 h0 a15 15 0 0 1 -15 -15 z" fill="none" stroke="var(--brown-700)" stroke-width="2.4" stroke-linejoin="round"/>
-        <path d="M38 20 q10 -2 10 6 q0 8 -10 6" fill="none" stroke="var(--brown-700)" stroke-width="2.4" stroke-linecap="round"/>
-        <ellipse cx="23" cy="16" rx="15" ry="3" fill="none" stroke="var(--brown-700)" stroke-width="2.4"/>
-      </svg>
-    </div>
-  </header>
-
-  <nav class="jumpnav" aria-label="Ir a sección">
-    <button data-target="cafe" class="active">Café</button>
-    <button data-target="te">Té y bebidas</button>
-    <button data-target="pasteleria">Pastelería y Snacks</button>
-  </nav>
-
-  <section class="menu-section" id="cafe">
-    <div class="cols">
-      <div>
-        <h2 class="cat">Café</h2>
-        <div class="menu-item"><span class="name">Espresso</span><span class="dots"></span><span class="price">$2.000</span></div>
-        <div class="menu-item"><span class="name">Americano</span><span class="dots"></span><span class="price">$2.000</span></div>
-        <div class="menu-item"><span class="name">Cappuccino</span><span class="dots"></span><span class="price">$3.000</span></div>
-        <div class="menu-item"><span class="name">Latte</span><span class="dots"></span><span class="price">$3.200</span></div>
-        <div class="menu-item"><span class="name">Moccaccino</span><span class="dots"></span><span class="price">$3.500</span></div>
-        <div class="menu-item"><span class="name">Cortado</span><span class="dots"></span><span class="price">$2.500</span></div>
-        <p class="footnote">Agrega toppings de canela ¡gratis!</p>
-      </div>
-
-      <div id="te">
-        <h2 class="cat">Té y bebidas calientes</h2>
-        <div class="menu-item"><span class="name">Té Variedades</span><span class="dots"></span><span class="price">$1.900</span></div>
-        <div class="menu-item"><span class="name">Chocolate</span><span class="dots"></span><span class="price">$2.500</span></div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <section class="menu-section pastry-wrap" id="pasteleria">
-    <h2 class="cat">Pastelería y Snacks</h2>
-
-    <svg class="pastry-doodles" viewBox="0 0 220 260" aria-hidden="true">
-      <circle cx="150" cy="40" r="26"/>
-      <circle cx="140" cy="30" r="2" fill="var(--brown-500)"/>
-      <circle cx="160" cy="46" r="2" fill="var(--brown-500)"/>
-      <circle cx="152" cy="55" r="2" fill="var(--brown-500)"/>
-      <path d="M50 60 q30 -30 60 0 q-10 25 -30 25 q-20 0 -30 -25 z"/>
-      <path d="M90 130 q-20 -10 -35 5 q15 10 35 -5 z"/>
-      <path d="M40 160 q10 -20 5 -35" />
-      <path d="M170 150 q-25 5 -20 30 q25 5 20 -30 z"/>
-      <path d="M55 210 q15 -15 35 0 q5 12 -5 18 q-10 6 -25 0 q-10 -6 -5 -18 z"/>
-    </svg>
-
-    <div class="pastry-items">
-      <div class="menu-item"><span class="name">Media Luna</span><span class="dots"></span><span class="price">$2.000</span></div>
-      <div class="menu-item"><span class="name">Dulces Árabes</span><span class="dots"></span><span class="price">2x $1.500</span></div>
-      <div class="menu-item"><span class="name">Rollito de canela</span><span class="dots"></span><span class="price">$2.000</span></div>
-      <div class="menu-item"><span class="name">Alfajor de maicena</span><span class="dots"></span><span class="price">$1.500</span></div>
-      <div class="menu-item"><span class="name">Alfajorcitos de maicena</span><span class="dots"></span><span class="price">$3.500</span></div>
-      <div class="menu-item"><span class="name">Strudle</span><span class="dots"></span><span class="price">$2.000</span></div>
-      <div class="menu-item"><span class="name">Sándwich masa madre</span><span class="dots"></span><span class="price">$2.500</span></div>
-      <div class="menu-item"><span class="name">Empanadita pino o queso</span><span class="dots"></span><span class="price">$1.000</span></div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="foot-line">
-      <a class="foot-link" href="https://instagram.com/estacionespressocafe" target="_blank" rel="noopener">@estacionespressocafe</a>
-    </div>
-    <div class="foot-line addr">
-      <a class="foot-link" href="https://www.google.com/maps/search/?api=1&query=Errázuriz+1852+Valparaíso" target="_blank" rel="noopener">Errázuriz 1852, Valparaíso</a>
-    </div>
-  </footer>
-
+<div class="hero">
+  <span class="hero-glass">🍸</span>
+  <div class="logo">ÉXODO 360</div>
+  <div class="subtitle">RESTOBAR</div>
+  <a class="insta-chip" href="https://instagram.com/Exodo.360" target="_blank" rel="noopener">
+    📷 <b>@Exodo.360</b>
+  </a>
 </div>
 
-<script>
-  // Scrollspy + smooth jump nav
-  const buttons = document.querySelectorAll('nav.jumpnav button');
-  const sections = ['cafe','te','pasteleria'].map(id => document.getElementById(id));
+<div class="controlbar">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search" type="text" placeholder="Busca tu trago favorito...">
+  </div>
+  <div class="pillrow" id="pillrow"></div>
+</div>
 
-  buttons.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const target = document.getElementById(btn.dataset.target);
-      if(target){
-        const y = target.getBoundingClientRect().top + window.scrollY - 76;
-        window.scrollTo({top:y, behavior:'smooth'});
-      }
+<main id="main"></main>
+
+<footer>
+  Gracias por ser parte de esta experiencia <span class="heart">💙</span>
+  <br>
+  <span class="handle">📷 Exodo.360</span>
+</footer>
+
+<script>
+const ACCENTS = ["pink","cyan","purple","yellow"];
+
+const DATA = [
+  { id:"margaritas", icon:"🍹", title:"Margaritas", items:[
+    { name:"Margarita tradicional y Blue", price:7500 },
+    { name:"Sabores", price:8500 },
+    { name:"Variedades", price:8500 },
+  ]},
+  { id:"pisco-sour", icon:"🍋", title:"Pisco Sour", items:[
+    { name:"Pisco-Sour tradicional", price:4500 },
+    { name:"Catedral", price:6000 },
+    { name:"Sabores", price:5000 },
+    { name:"Variedades", price:4500 },
+  ]},
+  { id:"mojitos", icon:"🌿", title:"Mojitos", items:[
+    { name:"Mojito tradicional", price:7000 },
+    { name:"Sabores", price:8000 },
+  ]},
+  { id:"spritz", icon:"🥂", title:"Spritz", items:[
+    { name:"Ramazzotti", price:7500 },
+    { name:"Aperol", price:7500 },
+    { name:"St. Germain", price:8500 },
+    { name:"Campari", price:7500 },
+  ]},
+  { id:"caipirinhas", icon:"🇧🇷", title:"Caipirinhas", items:[
+    { name:"Caipiriña", price:7000 },
+    { name:"Caipiroska", price:7000, note:"con vodka" },
+    { name:"Caipirissima", price:7000, note:"con ron" },
+    { name:"Sabores", price:8000 },
+  ]},
+  { id:"coladas", icon:"🍍", title:"Coladas", items:[
+    { name:"Piña", price:7500 },
+    { name:"Frutilla", price:7500 },
+    { name:"Mango", price:7500 },
+    { name:"Berries", price:7500 },
+  ]},
+  { id:"sangria", icon:"🍷", title:"Sangría", items:[
+    { name:"Berries", price:8000, note:"Vino tinto, granadina, crema de cassis, tequila, frambuesa, frutilla, arándano y moras." },
+    { name:"Citron", price:8000, note:"Vino blanco, tequila, jarabe de Azúcar, mango, piña, limon, naranja y maracuyá." },
+  ]},
+  { id:"collins", icon:"🥃", title:"Collins", items:[
+    { name:"Tom Collins", price:8000 },
+    { name:"John Collins", price:8000 },
+  ]},
+  { id:"clasicos", icon:"🍸", title:"Cócteles Clásicos", items:[
+    { name:"Kir", price:6000, note:"Vino blanco y crema de cassis." },
+    { name:"Kir Royal", price:6000, note:"Espumante y crema de cassis" },
+    { name:"Blue Lagoon", price:7000, note:"Vodka, jugo de piña, curaçao y jarabe de Azúcar." },
+    { name:"Negroni", price:9000, note:"Gin Sevilla, martini rosso y campari." },
+    { name:"Clavo Oxidado", price:9000, note:"Whisky, drambuie y clavo de olor." },
+    { name:"Tropical Gin", price:7500, note:"Gin, Redbull yellow y pulpa de mango o maracuyá." },
+    { name:"Cosmopolitan", price:7500, note:"Vodka, triple sec, jugo de limón y jugo de arándano." },
+    { name:"Orgasmo", price:7000, note:"Baileys, amareto y licor de café." },
+    { name:"Orgasmo Multiple", price:7000, note:"Baileys, amareto y licor de café y frangelico." },
+    { name:"Tequila Sunrise", price:7000, note:"Tequila, granadina y jugo de naranja." },
+    { name:"Sex on the Beach", price:7000, note:"Vodka, Licor de durazno, jugo de naranja, jugo de arándano y jarabe de azúcar." },
+    { name:"Gin Lemon Blue", price:8000, note:"Gin, Jugo de limón, blue curaçao y jarabe de Azúcar." },
+    { name:"Gin Pink", price:8000, note:"Gin, granadina, agua tónica y frutillas." },
+    { name:"Daiquiri", price:7000, note:"Ron blanco, jugo de limón y azúcar." },
+    { name:"Ruso Negro", price:9000, note:"Vodka, licor de cacao y licor de café" },
+    { name:"Ruso Blanco", price:9000, note:"Vodka, licor de cacao, licor de café y crema de leche." },
+
+
+  ]},
+  { id:"destilados", icon:"🍾", title:"Destilados", groups:[
+    { sub:"Gin", items:[
+      { name:"Beefeater Dry", price:8000 },
+      { name:"Tanqueray Dry", price:8000 },
+      { name:"Beefeater Pink", price:8500, note:"strawberry" },
+      { name:"Tanqueray Sevilla", price:8500 },
+    ]},
+    { sub:"Pisco", items:[
+      { name:"35°", price:5000 },
+      { name:"40°", price:6000 },
+    ]},
+    { sub:"Piscolón", items:[
+      { name:"35°", price:7000 },
+      { name:"40°", price:8000 },
+    ]},
+    { sub:"Ron", items:[
+      { name:"Barceló", price:6500 },
+      { name:"Havana Reserva", price:7000 },
+      { name:"Bacardí", price:6500 },
+    ]},
+    { sub:"Vodka", items:[
+      { name:"Stolichnaya", price:6500 },
+      { name:"Absolut", price:7000 },
+      { name:"Absolut Saborizado", price:7500 },
+    ]},
+    { sub:"Whisky", items:[
+      { name:"Johnnie Walker Red Label", price:7000 },
+      { name:"Jack Daniel's", price:7500 },
+      { name:"Ballantine's", price:7000 },
+    ]},
+  ]},
+  { id:"cervezas", icon:"🍺", title:"Cervezas", items:[
+    { name:"Cerveza Austral-Torobayo", price:5000 },
+    { name:"Cerveza 650cc", price:5000 },
+    { name:"Michelada", price:1000, addon:true, note:"agrégalo a cualquier cerveza" },
+  ]},
+  { id:"bebidas", icon:"🥤", title:"Bebidas sin Alcohol", items:[
+    { name:"Bebidas", price:3000 },
+    { name:"Red Bull", price:4000 },
+    { name:"Jugos Naturales", price:4000 },
+    { name:"Agua Mineral", price:2500 },
+  ]},
+  { id:"shots", icon:"🥃", title:"Shot de Tequila", items:[
+    { name:"Shot de Tequila", price:2000 },
+  ]},
+  { id:"compartir", icon:"🍢", title:"Para Compartir", items:[
+    { name:"Tabla de Carnes", price:15900, note:"Lomo, pollo, chorizos, aceitunas y baguette" },
+    { name:"Tabla Antipasto", price:6000 },
+    { name:"Pollo al Pilpil", price:8000 },
+    { name:"Camarón al Pilpil", price:9000 },
+  ]},
+];
+
+function fmt(n){ return "$" + n.toLocaleString("es-CL"); }
+
+function itemRow(it){
+  const priceLabel = it.addon ? ("+" + fmt(it.price)) : fmt(it.price);
+  return `
+  <div class="item" data-name="${it.name.toLowerCase()}">
+    <div class="item-row">
+      <span class="item-name">${it.name}</span>
+      <span class="item-dots"></span>
+      <span class="item-price">${priceLabel}</span>
+    </div>
+    ${it.note ? `<div class="item-note">${it.note}</div>` : ""}
+  </div>`;
+}
+
+const pillrow = document.getElementById("pillrow");
+const main = document.getElementById("main");
+
+DATA.forEach((cat, i) => {
+  const accent = ACCENTS[i % ACCENTS.length];
+
+  // pill
+  const pill = document.createElement("button");
+  pill.className = "pill";
+  pill.dataset.accent = accent;
+  pill.textContent = cat.icon + " " + cat.title;
+  pill.addEventListener("click", () => {
+    document.getElementById(cat.id).scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  pillrow.appendChild(pill);
+
+  // section
+  const section = document.createElement("section");
+  section.className = "category";
+  section.id = cat.id;
+
+  let body = "";
+  if (cat.items){
+    body = `<div class="card">${cat.items.map(itemRow).join("")}</div>`;
+  } else if (cat.groups){
+    body = cat.groups.map(g => `
+      <div class="subgroup-title">${g.sub}</div>
+      <div class="card">${g.items.map(itemRow).join("")}</div>
+    `).join("");
+  }
+
+  section.innerHTML = `
+    <div class="cat-head">
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-title" data-accent="${accent}">${cat.title}</span>
+      <span class="cat-line"></span>
+    </div>
+    ${body}
+  `;
+  main.appendChild(section);
+});
+
+const emptyState = document.createElement("div");
+emptyState.className = "empty-state";
+emptyState.style.display = "none";
+emptyState.textContent = "No encontramos ese trago. Prueba con otro nombre.";
+main.appendChild(emptyState);
+
+/* ---- search ---- */
+document.getElementById("search").addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll("section.category").forEach(section => {
+    let sectionHasMatch = false;
+    section.querySelectorAll(".item").forEach(item => {
+      const match = item.dataset.name.includes(q);
+      item.style.display = match ? "" : "none";
+      if (match) sectionHasMatch = true;
     });
+    section.style.display = (q === "" || sectionHasMatch) ? "" : "none";
+    if (q === "" || sectionHasMatch) anyVisible = true;
   });
 
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('in-view');
-        const id = entry.target.id;
-        buttons.forEach(b=> b.classList.toggle('active', b.dataset.target === id));
-      }
-    });
-  }, {rootMargin:'-40% 0px -50% 0px', threshold:0});
+  emptyState.style.display = anyVisible ? "none" : "block";
+});
 
-  document.querySelectorAll('section.menu-section').forEach(s=> io.observe(s));
+/* ---- scrollspy ---- */
+const pills = Array.from(pillrow.children);
+const sections = DATA.map(c => document.getElementById(c.id));
 
-  // Open / closed status — Lunes a Viernes, 09:00–17:00 (hora local del dispositivo)
-  function updateStatus(){
-    const now = new Date();
-    const day = now.getDay(); // 0 Sun ... 6 Sat
-    const minutes = now.getHours()*60 + now.getMinutes();
-    const open = day >= 1 && day <= 5 && minutes >= 9*60 && minutes < 17*60;
-    const pill = document.getElementById('statusPill');
-    const text = document.getElementById('statusText');
-    pill.classList.toggle('closed', !open);
-    text.textContent = open ? 'Abierto ahora' : 'Cerrado ahora';
-  }
-  updateStatus();
-  setInterval(updateStatus, 60000);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const idx = sections.indexOf(entry.target);
+    if (idx === -1) return;
+    if (entry.isIntersecting){
+      pills.forEach(p => p.classList.remove("active"));
+      pills[idx].classList.add("active");
+      pills[idx].scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
+    }
+  });
+}, { rootMargin: "-40% 0px -50% 0px", threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
 </script>
 
 </body>
